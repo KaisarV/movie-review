@@ -1,4 +1,6 @@
 package com.kai.movie_app.model
 
-class MovieResponse {
-}
+data class MovieResponse (
+    val total_page:Int,
+    val results:List<Movie>,
+    )
