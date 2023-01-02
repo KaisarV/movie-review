@@ -57,7 +57,7 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 override fun onFailure(call: retrofit2.Call<MovieResponse>, t: Throwable) {
-                    Log.d("", t.toString())
+                    Log.d("ERRORR", "errorResponse : ${t.toString()}")
                 }
 
             })
