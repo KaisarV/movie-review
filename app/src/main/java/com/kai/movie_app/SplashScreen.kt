@@ -15,6 +15,8 @@ class SplashScreen : AppCompatActivity() {
         //delay timer
         Handler().postDelayed({
             startActivity(Intent(this, MainActivity::class.java))
+            //close splash screen activity
+            finish()
         }, 2000)
     }
 }
