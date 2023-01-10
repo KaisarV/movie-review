@@ -5,15 +5,15 @@ import android.telecom.Call
 import android.util.Log
 import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.navigateUp
-import androidx.navigation.ui.setupActionBarWithNavController
+
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.ProgressBar
 import android.widget.Toast
+import androidx.navigation.findNavController
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.kai.movie_app.R
@@ -27,17 +27,7 @@ import retrofit2.Response
 
 class MainActivity : AppCompatActivity() {
 
-//    private lateinit var  recyclerView: androidx.recyclerview.widget.RecyclerView
-//    private lateinit var  progressMovie: ProgressBar
-    lateinit var mainAdapter: MainAdapter
-//    private lateinit var  sayHelloButton: Button
-//    private lateinit var  sayHelloTextView: TextView
-
-//    private fun initComponents(){
-
-
-
-//    }
+    private lateinit var mainAdapter: MainAdapter
 
     private lateinit var binding: ActivityMainBinding
 
@@ -45,10 +35,9 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(R.layout.activity_main)
-
+        setContentView(binding.root)
         setSupportActionBar(binding.toolbar)
-        setUpView()
+
         setupRecyclerView()
     }
 
@@ -57,12 +46,12 @@ class MainActivity : AppCompatActivity() {
         getMovie()
     }
 
-    private fun setUpView(){
-        binding.fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()
-        }
-    }
+//    private fun setUpView(){
+//        binding.fab.setOnClickListener { view ->
+//            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+//                .setAction("Action", null).show()
+//        }
+//    }
 
     private fun setupRecyclerView(){
         mainAdapter = MainAdapter(arrayListOf())
@@ -74,7 +63,7 @@ class MainActivity : AppCompatActivity() {
         }
 
     }
-    fun getMovie(){
+    private fun getMovie(){
         showLoading(true)
         ApiService().endpoint.getMovieNowPlaying(Constant.API_KEY, 1)
             .enqueue(object: Callback<MovieResponse>{
@@ -120,6 +109,8 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
+        super.onCreateOptionsMenu(menu)
+        Log.d("OPTION", "KEPANGGIL NIH")
         menuInflater.inflate(R.menu.menu_main, menu)
         return true
     }
@@ -129,14 +120,15 @@ class MainActivity : AppCompatActivity() {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         return when (item.itemId) {
-            R.id.action_settings -> true
+            R.id.action_popular -> {
+                showMessage("Popular Selected")
+                true
+            }
+            R.id.action_now_playing -> {
+                showMessage("Now Playing Selected")
+                true
+            }
             else -> super.onOptionsItemSelected(item)
         }
     }
-
-//    override fun onSupportNavigateUp(): Boolean {
-//        val navController = findNavController(R.id.nav_host_fragment_content_main)
-//        return navController.navigateUp(appBarConfiguration)
-//                || super.onSupportNavigateUp()
-//    }
 }
