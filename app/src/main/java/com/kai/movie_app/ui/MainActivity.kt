@@ -25,6 +25,8 @@ import retrofit2.Response
 
 const val MOVIE_POPULAR = 0
 const val MOVIE_NOW_PLAYING = 1
+const val MOVIE_TOP_RATED = 2
+const val MOVIE_UPCOMING = 3
 
 class MainActivity : AppCompatActivity() {
 
@@ -80,6 +82,14 @@ class MainActivity : AppCompatActivity() {
             MOVIE_NOW_PLAYING ->{
                 apiCall = ApiService().endpoint.getMovieNowPlaying(Constant.API_KEY, 1)
             }
+
+            MOVIE_TOP_RATED -> {
+                apiCall = ApiService().endpoint.getMovieTopRated(Constant.API_KEY, 1)
+            }
+
+            MOVIE_UPCOMING -> {
+                apiCall = ApiService().endpoint.getMovieUpcoming(Constant.API_KEY, 1)
+            }
         }
 
         apiCall!!
@@ -127,6 +137,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
         super.onCreateOptionsMenu(menu)
+
         Log.d("OPTION", "KEPANGGIL NIH")
         menuInflater.inflate(R.menu.menu_main, menu)
         return true
@@ -138,14 +149,20 @@ class MainActivity : AppCompatActivity() {
         // as you specify a parent activity in AndroidManifest.xml.
         return when (item.itemId) {
             R.id.action_popular -> {
-                showMessage("Popular Selected")
+                showMessage("Movie Popular Selected")
                 movieCategory = MOVIE_POPULAR
                 getMovie()
                 true
             }
             R.id.action_now_playing -> {
-                showMessage("Now Playing Selected")
+                showMessage("Movie Now Playing Selected")
                 movieCategory = MOVIE_NOW_PLAYING
+                getMovie()
+                true
+            }
+            R.id.action_top_rated -> {
+                showMessage("Movie Top Rated Selected")
+                movieCategory = MOVIE_TOP_RATED
                 getMovie()
                 true
             }

@@ -1,7 +1,9 @@
 <resources>
-    <string name="app_name">MovieReview</string>
+    <string name="app_name">MovieReview %1$s</string>
     <string name="action_popular">Popular</string>
     <string name="action_now_playing">Now Playing</string>
+    <string name="action_top_rated">Top Rated</string>
+    <string name="action_upcoming">Upcoming</string>
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
     <string name="second_fragment_label">Second Fragment</string>

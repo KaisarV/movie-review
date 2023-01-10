@@ -18,4 +18,17 @@ interface ApiEndpoint {
         @Query("api_key") api_key:String,
         @Query("page") page:Int
     ): Call<MovieResponse>
+
+    @GET("top_rated")
+    fun getMovieTopRated(
+        @Query("api_key") api_key:String,
+        @Query("page") page:Int
+    ): Call<MovieResponse>
+
+
+    @GET("upcoming")
+    fun getMovieUpcoming(
+        @Query("api_key") api_key:String,
+        @Query("page") page:Int
+    ): Call<MovieResponse>
 }
