@@ -149,20 +149,27 @@ class MainActivity : AppCompatActivity() {
         // as you specify a parent activity in AndroidManifest.xml.
         return when (item.itemId) {
             R.id.action_popular -> {
-                showMessage("Movie Popular Selected")
+                showMessage("Popular Movie Selected")
                 movieCategory = MOVIE_POPULAR
                 getMovie()
                 true
             }
             R.id.action_now_playing -> {
-                showMessage("Movie Now Playing Selected")
+                showMessage("Now Playing Movie Selected")
                 movieCategory = MOVIE_NOW_PLAYING
                 getMovie()
                 true
             }
             R.id.action_top_rated -> {
-                showMessage("Movie Top Rated Selected")
+                showMessage("Top Rated Movie Selected")
                 movieCategory = MOVIE_TOP_RATED
+                getMovie()
+                true
+            }
+
+            R.id.action_upcoming -> {
+                showMessage("Upcoming Movie Selected")
+                movieCategory = MOVIE_UPCOMING
                 getMovie()
                 true
             }
