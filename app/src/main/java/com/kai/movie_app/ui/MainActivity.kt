@@ -11,9 +11,6 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.ProgressBar
 import android.widget.Toast
-import androidx.navigation.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.kai.movie_app.R
@@ -25,11 +22,18 @@ import com.kai.movie_app.retrofit.ApiService
 import retrofit2.Callback
 import retrofit2.Response
 
+
+const val MOVIE_POPULAR = 0
+const val MOVIE_NOW_PLAYING = 1
+
 class MainActivity : AppCompatActivity() {
 
     private lateinit var mainAdapter: MainAdapter
 
     private lateinit var binding: ActivityMainBinding
+
+    private var movieCategory = 0
+    private val apiService = ApiService().endpoint
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -65,7 +69,20 @@ class MainActivity : AppCompatActivity() {
     }
     private fun getMovie(){
         showLoading(true)
-        ApiService().endpoint.getMovieNowPlaying(Constant.API_KEY, 1)
+
+        var apiCall:retrofit2.Call<MovieResponse>? = null
+
+        when(movieCategory){
+            MOVIE_POPULAR ->{
+                apiCall = ApiService().endpoint.getMoviePopular(Constant.API_KEY, 1)
+            }
+
+            MOVIE_NOW_PLAYING ->{
+                apiCall = ApiService().endpoint.getMovieNowPlaying(Constant.API_KEY, 1)
+            }
+        }
+
+        apiCall!!
             .enqueue(object: Callback<MovieResponse>{
                 override fun onResponse(
                     call: retrofit2.Call<MovieResponse>,
@@ -122,10 +139,14 @@ class MainActivity : AppCompatActivity() {
         return when (item.itemId) {
             R.id.action_popular -> {
                 showMessage("Popular Selected")
+                movieCategory = MOVIE_POPULAR
+                getMovie()
                 true
             }
             R.id.action_now_playing -> {
                 showMessage("Now Playing Selected")
+                movieCategory = MOVIE_NOW_PLAYING
+                getMovie()
                 true
             }
             else -> super.onOptionsItemSelected(item)
