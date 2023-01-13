@@ -12,7 +12,7 @@ import com.kai.movie_app.model.Constant
 import com.kai.movie_app.model.Movie
 import com.squareup.picasso.Picasso
 
-class MainAdapter(var movies:ArrayList<Movie>): RecyclerView.Adapter<MainAdapter.ViewHolder>(){
+class MainAdapter(var movies:ArrayList<Movie>, var listener:OnAdapterListener): RecyclerView.Adapter<MainAdapter.ViewHolder>(){
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int)= ViewHolder (
@@ -32,6 +32,10 @@ class MainAdapter(var movies:ArrayList<Movie>): RecyclerView.Adapter<MainAdapter
             .error(R.drawable.placeholder_portrait)
             .into(poster);
 
+        poster.setOnClickListener{
+            listener.onClick(movie)
+        }
+
     }
 
     class ViewHolder(view: View): RecyclerView.ViewHolder(view){
@@ -47,6 +51,11 @@ class MainAdapter(var movies:ArrayList<Movie>): RecyclerView.Adapter<MainAdapter
         movies.addAll(newMovies)
         //RELOAD
         notifyDataSetChanged()
+    }
+
+    interface OnAdapterListener{
+        fun onClick(movie: Movie)
+
     }
 
 

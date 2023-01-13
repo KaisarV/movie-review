@@ -17,6 +17,7 @@ import com.kai.movie_app.R
 import com.kai.movie_app.adapter.MainAdapter
 import com.kai.movie_app.databinding.ActivityMainBinding
 import com.kai.movie_app.model.Constant
+import com.kai.movie_app.model.Movie
 import com.kai.movie_app.model.MovieResponse
 import com.kai.movie_app.retrofit.ApiService
 import retrofit2.Callback
@@ -60,7 +61,11 @@ class MainActivity : AppCompatActivity() {
 //    }
 
     private fun setupRecyclerView(){
-        mainAdapter = MainAdapter(arrayListOf())
+        mainAdapter = MainAdapter(arrayListOf(), object: MainAdapter.OnAdapterListener{
+            override fun onClick(movie: Movie){
+                showMessage(movie.title!!)
+            }
+        })
         val recyclerView:RecyclerView = findViewById(R.id.list_movie)
 
         recyclerView.apply {
@@ -137,8 +142,6 @@ class MainActivity : AppCompatActivity() {
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
         super.onCreateOptionsMenu(menu)
-
-        Log.d("OPTION", "KEPANGGIL NIH")
         menuInflater.inflate(R.menu.menu_main, menu)
         return true
     }
