@@ -35,7 +35,6 @@ class MainAdapter(var movies:ArrayList<Movie>, var listener:OnAdapterListener): 
         poster.setOnClickListener{
             listener.onClick(movie)
         }
-
     }
 
     class ViewHolder(view: View): RecyclerView.ViewHolder(view){
@@ -55,8 +54,6 @@ class MainAdapter(var movies:ArrayList<Movie>, var listener:OnAdapterListener): 
 
     interface OnAdapterListener{
         fun onClick(movie: Movie)
-
     }
-
 
 }

@@ -1,5 +1,6 @@
 package com.kai.movie_app.ui
 
+import android.content.Intent
 import android.os.Bundle
 import android.telecom.Call
 import android.util.Log
@@ -64,6 +65,10 @@ class MainActivity : AppCompatActivity() {
         mainAdapter = MainAdapter(arrayListOf(), object: MainAdapter.OnAdapterListener{
             override fun onClick(movie: Movie){
                 showMessage(movie.title!!)
+                Constant.MOVIE_ID = movie.id!!
+                Constant.MOVIE_TITLE = movie.title
+
+                startActivity(Intent(applicationContext, DetailActivity::class.java))
             }
         })
         val recyclerView:RecyclerView = findViewById(R.id.list_movie)
@@ -110,7 +115,7 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 override fun onFailure(call: retrofit2.Call<MovieResponse>, t: Throwable) {
-                    Log.d("ERRORR", "errorResponse : ${t.toString()}")
+                    Log.d("ERROR GET DATA", "errorResponse : ${t.toString()}")
                     showLoading(false)
                 }
 
