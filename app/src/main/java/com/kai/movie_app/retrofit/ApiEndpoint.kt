@@ -1,8 +1,10 @@
 package com.kai.movie_app.retrofit
 
+import com.kai.movie_app.model.DetailResponse
 import com.kai.movie_app.model.MovieResponse
 import retrofit2.Call
 import retrofit2.http.GET
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface ApiEndpoint {
@@ -31,4 +33,11 @@ interface ApiEndpoint {
         @Query("api_key") api_key:String,
         @Query("page") page:Int
     ): Call<MovieResponse>
+
+    @GET("/{movie_id}")
+    fun getDetail(
+        //Replace movie id
+        @Path("movie_id") movie_id:String,
+        @Query("page") page:Int
+    ): Call<DetailResponse>
 }
